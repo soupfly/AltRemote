@@ -267,3 +267,8 @@ The first release build on a 4 GB machine can trip the memory watchdog during
 
 - [`androidtvremote2`](https://github.com/tronikos/androidtvremote2) (Python)
 - [`androidtv-remote`](https://github.com/louis49/androidtv-remote) (Node)
+
+## License
+
+[MIT](LICENSE). Not affiliated with or endorsed by Google. "Google TV" and "Android TV"
+are trademarks of Google LLC.

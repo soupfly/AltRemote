@@ -2,6 +2,7 @@
   "name": "altremote",
   "version": "1.0.0",
   "private": true,
+  "license": "MIT",
   "scripts": {
     "android": "react-native run-android",
     "lint": "eslint .",
