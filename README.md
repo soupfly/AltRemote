@@ -19,6 +19,15 @@ goes through the cloud.
 
 Tested on a Samsung Galaxy A15 5G (Android 16) with a Skyworth Google TV.
 
+## Download
+
+Get the APK from the [latest release](https://github.com/soupfly/AltRemote/releases/latest)
+and open it on your phone. Android asks you to allow installing apps from your browser or
+file manager the first time. It needs Android 8 or newer on a 64-bit phone (arm64), which
+covers most phones from the last several years.
+
+Then open AltRemote, tap your TV, and enter the code the TV shows.
+
 ## Build and run
 
 You need JDK 17, Node.js 22+, the Android SDK and an Android phone (Android 8+) with
