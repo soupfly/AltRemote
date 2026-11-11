@@ -19,7 +19,7 @@ export ANDROID_HOME="${ANDROID_HOME:-$HOME/Android/Sdk}"
 # shellcheck source=/dev/null
 [[ -s "$HOME/.nvm/nvm.sh" ]] && . "$HOME/.nvm/nvm.sh" >/dev/null
 
-if pgrep -f "qemu-system" >/dev/null; then
+if pgrep -f "qemu-system.* -avd " >/dev/null; then
   echo "The Android emulator is running. Close it first; there isn't enough RAM for both." >&2
   exit 1
 fi
