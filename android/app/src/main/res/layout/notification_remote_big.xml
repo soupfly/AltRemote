@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Expanded notification / lock screen: a small remote.
+    Back   Up    Home
+    Left   OK    Right
+    Vol-   Down  Vol+
+    Play/Pause   Mute   Disconnect
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center_vertical"
+      android:orientation="horizontal">
+    <TextView
+        android:id="@+id/remote_title"
+        style="@android:style/TextAppearance.Material.Notification.Title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:maxLines="1" />
+    <TextView
+        android:id="@+id/remote_status"
+        style="@android:style/TextAppearance.Material.Notification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="1"
+        android:textColor="@color/rc_text_secondary" />
+  </LinearLayout>
+
+  <!-- Row 1 -->
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="48dp"
+      android:orientation="horizontal">
+    <ImageButton android:id="@+id/btn_back" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
+        android:background="@android:color/transparent" android:contentDescription="Back" android:src="@drawable/ic_rc_back" />
+    <ImageButton android:id="@+id/btn_up" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
+        android:background="@android:color/transparent" android:contentDescription="Up" android:src="@drawable/ic_rc_up" android:scaleType="fitCenter" android:padding="6dp" />
+    <ImageButton android:id="@+id/btn_home" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
+        android:background="@android:color/transparent" android:contentDescription="Home" android:src="@drawable/ic_rc_home" />
+  </LinearLayout>
+
+  <!-- Row 2 -->
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="48dp"
+      android:orientation="horizontal">
+    <ImageButton android:id="@+id/btn_left" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
+        android:background="@android:color/transparent" android:contentDescription="Left" android:src="@drawable/ic_rc_left" android:scaleType="fitCenter" android:padding="6dp" />
+    <ImageButton android:id="@+id/btn_ok" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
+        android:background="@android:color/transparent" android:contentDescription="OK" android:src="@drawable/ic_rc_ok" android:scaleType="fitCenter" android:padding="4dp" />
+    <ImageButton android:id="@+id/btn_right" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
+        android:background="@android:color/transparent" android:contentDescription="Right" android:src="@drawable/ic_rc_right" android:scaleType="fitCenter" android:padding="6dp" />
+  </LinearLayout>
+
+  <!-- Row 3 -->
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="48dp"
+      android:orientation="horizontal">
+    <ImageButton android:id="@+id/btn_vol_down" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
+        android:background="@android:color/transparent" android:contentDescription="Volume down" android:src="@drawable/ic_rc_vol_down" />
+    <ImageButton android:id="@+id/btn_down" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
+        android:background="@android:color/transparent" android:contentDescription="Down" android:src="@drawable/ic_rc_down" android:scaleType="fitCenter" android:padding="6dp" />
+    <ImageButton android:id="@+id/btn_vol_up" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
+        android:background="@android:color/transparent" android:contentDescription="Volume up" android:src="@drawable/ic_rc_vol_up" />
+  </LinearLayout>
+
+  <!-- Row 4 -->
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="44dp"
+      android:orientation="horizontal">
+    <ImageButton android:id="@+id/btn_play_pause" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
+        android:background="@android:color/transparent" android:contentDescription="Play or pause" android:src="@drawable/ic_rc_play_pause" />
+    <ImageButton android:id="@+id/btn_mute" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
+        android:background="@android:color/transparent" android:contentDescription="Mute" android:src="@drawable/ic_rc_mute" />
+    <ImageButton android:id="@+id/btn_disconnect" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1"
+        android:background="@android:color/transparent" android:contentDescription="Disconnect" android:src="@drawable/ic_rc_close" />
+  </LinearLayout>
+</LinearLayout>

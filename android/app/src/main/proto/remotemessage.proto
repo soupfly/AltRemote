@@ -1,0 +1,170 @@
+// Android TV Remote v2 control protocol, spoken on TCP port 6466 over TLS (same client
+// certificate as pairing). Each RemoteMessage is prefixed with its length as a varint.
+//
+// Schema matches the open-source androidtvremote2 implementation, with one change:
+// key_code is declared as int32 instead of the 305-value RemoteKeyCode enum. Enums and
+// int32 are identical on the wire, and the values are Android KeyEvent codes, so the app
+// sends KeyEvent numbers directly (KEYCODE_HOME = 3, KEYCODE_DPAD_UP = 19, ...).
+
+syntax = "proto3";
+
+package remote;
+
+option java_package = "com.altremote.tvremote.proto.remote";
+option java_multiple_files = true;
+
+message RemoteMessage {
+  RemoteConfigure remote_configure = 1;
+  RemoteSetActive remote_set_active = 2;
+  RemoteError remote_error = 3;
+  RemotePingRequest remote_ping_request = 8;
+  RemotePingResponse remote_ping_response = 9;
+  RemoteKeyInject remote_key_inject = 10;
+  RemoteImeKeyInject remote_ime_key_inject = 20;
+  RemoteImeBatchEdit remote_ime_batch_edit = 21;
+  RemoteImeShowRequest remote_ime_show_request = 22;
+  RemoteVoiceBegin remote_voice_begin = 30;
+  RemoteVoicePayload remote_voice_payload = 31;
+  RemoteVoiceEnd remote_voice_end = 32;
+  RemoteStart remote_start = 40;
+  RemoteSetVolumeLevel remote_set_volume_level = 50;
+  RemoteAdjustVolumeLevel remote_adjust_volume_level = 51;
+  RemoteSetPreferredAudioDevice remote_set_preferred_audio_device = 60;
+  RemoteResetPreferredAudioDevice remote_reset_preferred_audio_device = 61;
+  RemoteAppLinkLaunchRequest remote_app_link_launch_request = 90;
+}
+
+// Sent by the TV first; the client answers with its own (code1 = feature bitmask).
+message RemoteConfigure {
+  int32 code1 = 1;
+  RemoteDeviceInfo device_info = 2;
+}
+
+message RemoteDeviceInfo {
+  string model = 1;
+  string vendor = 2;
+  int32 unknown1 = 3;
+  string unknown2 = 4;
+  string package_name = 5;
+  string app_version = 6;
+}
+
+// Sent by the TV after configure; the client answers with its active feature bitmask.
+message RemoteSetActive {
+  int32 active = 1;
+}
+
+message RemoteError {
+  bool value = 1;
+  RemoteMessage message = 2;
+}
+
+// The TV pings about every 5 seconds; the client must echo val1 or the TV disconnects.
+message RemotePingRequest {
+  int32 val1 = 1;
+  int32 val2 = 2;
+}
+
+message RemotePingResponse {
+  int32 val1 = 1;
+}
+
+message RemoteKeyInject {
+  int32 key_code = 1; // Android KeyEvent code (see header comment)
+  RemoteDirection direction = 2;
+}
+
+// Sent by the TV when the foreground app or text field changes.
+message RemoteImeKeyInject {
+  RemoteAppInfo app_info = 1;
+  RemoteTextFieldStatus text_field_status = 2;
+}
+
+message RemoteAppInfo {
+  int32 counter = 1;
+  int32 int2 = 2;
+  int32 int3 = 3;
+  string int4 = 4;
+  int32 int7 = 7;
+  int32 int8 = 8;
+  string label = 10;
+  string app_package = 12;
+  int32 int13 = 13;
+}
+
+message RemoteTextFieldStatus {
+  int32 counter_field = 1;
+  string value = 2;
+  int32 start = 3;
+  int32 end = 4;
+  int32 int5 = 5;
+  string label = 6;
+}
+
+message RemoteImeBatchEdit {
+  int32 ime_counter = 1;
+  int32 field_counter = 2;
+  repeated RemoteEditInfo edit_info = 3;
+}
+
+message RemoteEditInfo {
+  int32 insert = 1;
+  RemoteImeObject text_field_status = 2;
+}
+
+message RemoteImeObject {
+  int32 start = 1;
+  int32 end = 2;
+  string value = 3;
+}
+
+message RemoteImeShowRequest {
+  RemoteTextFieldStatus remote_text_field_status = 2;
+}
+
+message RemoteSetVolumeLevel {
+  uint32 unknown1 = 1;
+  uint32 unknown2 = 2;
+  string player_model = 3;
+  uint32 unknown4 = 4;
+  uint32 unknown5 = 5;
+  uint32 volume_max = 6;
+  uint32 volume_level = 7;
+  bool volume_muted = 8;
+}
+
+// Sent by the TV with its power state (started = screen on).
+message RemoteStart {
+  bool started = 1;
+}
+
+message RemoteAppLinkLaunchRequest {
+  string app_link = 1;
+}
+
+message RemoteAdjustVolumeLevel {}
+
+message RemoteVoiceBegin {
+  int32 session_id = 1;
+  string package_name = 2;
+}
+
+message RemoteVoicePayload {
+  int32 session_id = 1;
+  bytes samples = 2;
+}
+
+message RemoteVoiceEnd {
+  int32 session_id = 1;
+}
+
+message RemoteResetPreferredAudioDevice {}
+
+message RemoteSetPreferredAudioDevice {}
+
+enum RemoteDirection {
+  UNKNOWN_DIRECTION = 0;
+  START_LONG = 1;
+  END_LONG = 2;
+  SHORT = 3;
+}

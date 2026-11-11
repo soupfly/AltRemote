@@ -1,0 +1,37 @@
+buildscript {
+    ext {
+        buildToolsVersion = "36.0.0"
+        minSdkVersion = 26
+        compileSdkVersion = 36
+        targetSdkVersion = 36
+        ndkVersion = "27.1.12297006"
+        kotlinVersion = "2.2.0"
+    }
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath("com.android.tools.build:gradle")
+        classpath("com.facebook.react:react-native-gradle-plugin")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin")
+        classpath("com.google.protobuf:protobuf-gradle-plugin:0.10.1")
+    }
+}
+
+apply plugin: "com.facebook.react.rootproject"
+
+// Low-RAM machine: run only one C++ compile/link job at a time.
+// Without this, ninja starts one clang per CPU core, and on a 3.5 GB machine
+// compiling React Native's native code runs out of memory and freezes the system.
+subprojects {
+    def limitNativeJobs = { p ->
+        p.android.defaultConfig.externalNativeBuild.cmake.arguments(
+            "-DCMAKE_JOB_POOLS=altremote_low_ram=1",
+            "-DCMAKE_JOB_POOL_COMPILE=altremote_low_ram",
+            "-DCMAKE_JOB_POOL_LINK=altremote_low_ram"
+        )
+    }
+    plugins.withId("com.android.application") { limitNativeJobs(project) }
+    plugins.withId("com.android.library") { limitNativeJobs(project) }
+}

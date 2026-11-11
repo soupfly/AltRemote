@@ -1,0 +1,51 @@
+# OS / editors
+.DS_Store
+.idea/
+.vscode/
+*.iml
+*.swp
+
+# Node / React Native
+node_modules/
+npm-debug.log*
+yarn-error.log
+.metro-health-check*
+*.jsbundle
+
+# Android / Gradle
+android/.gradle/
+android/build/
+android/app/build/
+android/app/release/
+android/local.properties
+android/captures/
+.cxx/
+.externalNativeBuild/
+*.apk
+*.aab
+
+# Signing keys and secrets (never commit)
+*.keystore
+!debug.keystore
+*.jks
+android/keystore.properties
+.env
+.env.*
+
+# Testing
+coverage/
+
+# From the React Native template
+build/
+.gradle
+.kotlin/
+*.hprof
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# Local build logs
+build-*.log
